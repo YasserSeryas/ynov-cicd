@@ -1,11 +1,29 @@
-node{
-stage('Get from git project')
-  {
+pipeline {
+  
+          agent any
+
+          tools {
+            maven 'maven'
+          }
+
+          stages{
+            stage('Get from git project'){
+  steps {
     git 'https://github.com/MezghichGit/mavenJunitProject'
   }
-  
-  stage('Compile then package')
-  {
-    sh 'mvn package'
-  }
+            }
+
+           // Create a new .jar file 
+
+            stage('Create a new .jar') {
+
+                steps {
+                    
+                   sh 'mvn clean install -DskipTests'
+                
+                      }
+
+          
+            }
+}
 }
